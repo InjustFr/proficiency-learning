@@ -1,0 +1,26 @@
+.proficiency-learning h4 {
+    flex: none;
+    line-height: 20px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    color: #4b4a44;
+}
+
+.proficiency-learning .proficiency {
+    align-items: center;
+    color: #4b4a44;
+}
+
+.proficiency-learning .proficiency > * {
+    flex: unset;
+}
+
+.proficiency-learning .proficiency h5 {
+    line-height: 20px;
+    font-weight: bold;
+    margin: 0 auto 0 10px;
+}
+
+.proficiency-learning .proficiency progress {
+    margin-right: 10px;
+}

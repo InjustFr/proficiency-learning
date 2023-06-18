@@ -9,9 +9,9 @@ const idToAbilityMap = {
 class ProficiencyLearningData {
     current = 0;
 
-    constructor(type, name, ability, goal) {
+    constructor(id, type, ability, goal) {
+        this.id = id;
         this.type = type;
-        this.name = name;
         this.ability = ability;
         this.goal = goal;
     }
@@ -41,6 +41,21 @@ class ProficiencyLearningModule {
     static init() {
     }
 
+    static async injectProficiencyLearningView(app, html, data) {
+        const proficiency = app.actor.getFlag(this.ID, 'learning');
+
+        if(proficiency.type === 'skill')
+            proficiency.name = CONFIG.DND5E.skills[proficiency.id].label;
+        if(proficiency.type === 'language')
+            proficiency.name = CONFIG.DND5E.skills[proficiency.id];
+
+        const renderedTemplate = await renderTemplate(`modules/${this.ID}/templates/proficiency-learning.hbs`, {
+            proficiency
+        });
+
+        $(html).find('.tab.attributes .center-pane').append(renderedTemplate);
+    }
+
 
     static startLearning(actor, proficiencyId) {
         const proficiencyInfo = this.#determineProficienyInfosFromId(proficiencyId);
@@ -48,8 +63,8 @@ class ProficiencyLearningModule {
             this.ID, 
             'learning',
             new ProficiencyLearningData(
-                proficiencyInfo.type,
                 proficiencyId,
+                proficiencyInfo.type,
                 proficiencyInfo.ability,
                 proficiencyInfo.type === 'skill' ? this.settings.defaultGoal * 2 : this.settings.defaultGoal
             )
@@ -72,5 +87,9 @@ class ProficiencyLearningModule {
 
 Hooks.once("init", async function () {
     ProficiencyLearningModule.init();
+});
+
+Hooks.on('renderActorSheet5e', async (app, html, data) => {
+    ProficiencyLearningModule.injectProficiencyLearningView(app, html, data);
 });
 
