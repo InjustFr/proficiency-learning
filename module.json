@@ -1,0 +1,38 @@
+{
+    "id": "proficiency-learning",
+    "title": "Proficiency Learning",
+    "description": "A module that integrates new D&D rules for learning proficiency while adventuring",
+    "authors": [
+        {
+            "name": "Injust",
+            "url": "https://github.com/InjustFr"
+        }
+    ],
+    "version": "1.0.0",
+    "compatibility": {
+        "minimum": "11",
+        "verified": "11"
+    },
+    "esmodules": ["scripts/proficiency-learning.mjs"],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        },
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "languages/fr.json"
+        }
+    ],
+    "relationships": {
+        "systems": [{
+            "id": "dnd5e",
+            "compatibility": {
+                "verified": "2.2.1"
+            }
+        }]
+    },
+	"url": "https://github.com/InjustFr/proficiency-learning"
+}
